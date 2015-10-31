@@ -4,6 +4,7 @@
     Author     : Administrador
 --%>
 
+<%@page import="co.com.miNomina.MisFuncionarios"%>
 <%@page import="co.com.miNomina.Empleado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,9 +15,18 @@
     </head>
     <body>
         <%
-            Empleado GetEmple = (Empleado) session.getAttribute("EmpleadoS");
-            out.println("el codigo guardado es: " + GetEmple.getCodigo() );
-            out.println("el nombre guardado es: " + GetEmple.getnombre());
+            MisFuncionarios misFuncionarios = (MisFuncionarios) session.getAttribute("EmpleadoS");
+            if (misFuncionarios != null) {
+                for (Empleado empleado : misFuncionarios.getFuncionarios()) {
+                    out.println("el codigo guardado es: " + empleado.getCodigo());
+                    out.println("el nombre guardado es: " + empleado.getNombre());
+                    out.println("<br>");
+                }
+            }
+            
+            misFuncionarios.insertarDatos(misFuncionarios);
+//             out.println("<td><a href ='datos.jsp?id="+catalogo.getId()+"&nombre="+catalogo.getNombre()+"&precio="+catalogo.getPrecio()+"&imagen="+catalogo.getImagen()+"' class = 'btnAlquilar'>Alquiler</a></td>");
+
         %>
     </body>
 </html>

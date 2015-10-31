@@ -13,15 +13,37 @@ import java.io.Serializable;
  * @author Administrador
  */
 public class Empleado implements Serializable {
-    
+
     public static final String PROP_SAMPLE_PROPERTY = "sampleProperty";
-    
+
     private String sampleProperty;
-    
+
     private PropertyChangeSupport propertySupport;
-    
-    String codigo;
-    String nombre;
+
+    private String codigo;
+    private String nombre;
+
+    public Empleado() {
+        propertySupport = new PropertyChangeSupport(this);
+    }
+
+    public String getSampleProperty() {
+        return sampleProperty;
+    }
+
+    public void setSampleProperty(String value) {
+        String oldValue = sampleProperty;
+        sampleProperty = value;
+        propertySupport.firePropertyChange(PROP_SAMPLE_PROPERTY, oldValue, sampleProperty);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertySupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertySupport.removePropertyChangeListener(listener);
+    }
 
     public String getCodigo() {
         return codigo;
@@ -31,43 +53,12 @@ public class Empleado implements Serializable {
         this.codigo = codigo;
     }
 
-    public String getnombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setnombre(String empleado) {
-        this.nombre = nombre
-                
-                
-                
-                
-                
-                
-                
-                
-                ;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
-    public Empleado() {
-        propertySupport = new PropertyChangeSupport(this);
-    }
-    
-    public String getSampleProperty() {
-        return sampleProperty;
-    }
-    
-    public void setSampleProperty(String value) {
-        String oldValue = sampleProperty;
-        sampleProperty = value;
-        propertySupport.firePropertyChange(PROP_SAMPLE_PROPERTY, oldValue, sampleProperty);
-    }
-    
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.addPropertyChangeListener(listener);
-    }
-    
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.removePropertyChangeListener(listener);
-    }
-    
+
 }

@@ -4,6 +4,7 @@
     Author     : Administrador
 --%>
 
+<%@page import="co.com.miNomina.MisFuncionarios"%>
 <%@page import="co.com.miNomina.Empleado"%>
 <%@page import="javax.jms.Session"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,15 +18,22 @@
         <%
             String codigo = request.getParameter("codigo");
             String nombre = request.getParameter("nombre");
-            
+
             Empleado empleado = new Empleado();
             empleado.setCodigo(codigo);
-            empleado.setnombre(nombre);
-            
-            session.setAttribute("EmpleadoS",empleado);
-            
+            empleado.setNombre(nombre);
+
+            MisFuncionarios misFuncionarios = new MisFuncionarios();
+            misFuncionarios.agregarEmpleado(empleado);
+            if ((MisFuncionarios) session.getAttribute("EmpleadoS") != null) {
+                misFuncionarios = ((MisFuncionarios) session.getAttribute("EmpleadoS"));
+                misFuncionarios.getFuncionarios().add(empleado);
+                session.setAttribute("EmpleadoS", misFuncionarios);
+            } else {
+                session.setAttribute("EmpleadoS", misFuncionarios);
+            }
             response.sendRedirect("index.jsp");
-            
+
         %>
     </body>
 </html>
